@@ -1,0 +1,53 @@
+<html>
+<head>
+<style>
+li{
+font-size:20px;
+}
+body{
+background-image:url('03.jpg');
+background-size:cover;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+function func(){
+var i;
+var streetsuffix = [];
+var streetname = [];
+$.getJSON("https://api.estated.com/property/v3?token=uSH6gkETegLLKUvDuBt2SDAccBMGG2&address=151+Battle+Green+Dr&city=Rochester&state=NY&zipcode=14624",function(data){
+console.log(data);
+
+for(i=0;i<data.addresses.length;i++)
+{
+	streetnumber.push(data.addresses[i].street_suffix);
+	streetname.push(data.addresses[i].street_name);
+}
+
+console.log(streetsuffix)
+console.log(streetname)
+
+var j;
+for(j=0;j<streetsuffix.length;j++)
+{
+var node=document.createElement("LI");
+var p=document.createElement("PRE");
+ var text =document.createTextNode("Name : "+streetsuffix[j]+"       Email:"+streetname[j]);
+p.appendChild(text);  
+node.appendChild(p);
+document.getElementById("res").appendChild(node);
+}
+}
+);
+}
+</script>
+</head>
+<body onload="func()">
+
+<ol id="res">
+	</ol>
+
+ 
+   </body> 
+</html>

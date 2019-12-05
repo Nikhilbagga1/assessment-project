@@ -1,0 +1,53 @@
+<html>
+<head>
+<style>
+li{
+font-size:20px;
+}
+body{
+background-image:url('03.jpg');
+background-size:cover;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+function func(){
+var i;
+var name = [];
+var email = [];
+$.getJSON("https://reqres.in/api/users?page=2",function(data){
+console.log(data);
+
+for(i=0;i<data.data.length;i++)
+{
+	name.push(data.data[i].first_name+" "+data.data[i].last_name);
+	email.push(data.data[i].email);
+}
+
+console.log(name)
+console.log(email)
+
+var j;
+for(j=0;j<name.length;j++)
+{
+var node=document.createElement("LI");
+var p=document.createElement("PRE");
+ var text =document.createTextNode("Name : "+name[j]+"       Email:"+email[j]);
+p.appendChild(text);  
+node.appendChild(p);
+document.getElementById("res").appendChild(node);
+}
+}
+);
+}
+</script>
+</head>
+<body onload="func()">
+
+<ol id="res">
+	</ol>
+
+ 
+   </body> 
+</html>

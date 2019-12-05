@@ -1,0 +1,84 @@
+<html>
+<head>
+<style>
+li{
+font-size:28px;
+color: yellow; 
+  font-weight: bold;
+}
+body{
+background-image:url('img04.jpg');
+background-size:cover;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+function func(){
+var i;
+var k;
+var name = [];
+var address = [];
+var city = [];
+var zipcode = [];
+var streetsuffix = [];
+var streetname = [];
+var streetno=[];
+$.getJSON("https://api.estated.com/property/v3?token=uSH6gkETegLLKUvDuBt2SDAccBMGG2&address=151+Battle+Green+Dr&city=Rochester&state=NY&zipcode=14624",function(data){
+console.log(data);
+
+for(i=0;i<data.properties.length;i++)
+{
+	streetsuffix.push(data.properties[i].addresses[0].street_suffix);
+	streetname.push(data.properties[i].addresses[0].street_name);
+	streetno.push(data.properties[i].addresses[0].street_number);
+}
+for(k=0;k<data.properties.length;k++)
+{
+	name.push(data.properties[k].owners[0].name);
+	address.push(data.properties[k].owners[0].address);
+	city.push(data.properties[k].owners[0].city);
+zipcode.push(data.properties[k].owners[0].zip_code);
+}
+
+console.log(streetsuffix);
+console.log(streetname);
+console.log(name);
+console.log(address);
+console.log(city);
+console.log(zipcode);
+
+
+var j;
+for(j=0;j<streetsuffix.length;j++)
+{
+var node=document.createElement("LI");
+var p=document.createElement("PRE");
+ var text =document.createTextNode("street_suffix : "+streetsuffix[j]+"       Street_Name:"+streetname[j]+"           Street No: "+streetno[j]);
+p.appendChild(text);  
+node.appendChild(p);
+document.getElementById("res").appendChild(node);
+}
+var m;
+for(m=0;m<name.length;m++)
+{
+var node=document.createElement("LI");
+var p=document.createElement("PRE");
+ var text =document.createTextNode("name : "+name[m]+"      address:"+address[m]+"           city: "+city[m]);
+p.appendChild(text);  
+node.appendChild(p);
+document.getElementById("res").appendChild(node);
+}
+}
+);
+}
+</script>
+</head>
+<body onload="func()">
+
+<ol id="res">
+	</ol>
+
+ 
+   </body> 
+</html>

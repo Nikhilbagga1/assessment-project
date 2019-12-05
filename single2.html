@@ -1,0 +1,65 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+function func(){
+var i;
+var desc = [];
+var price = [];
+var latitude = [];
+var longitude = [];
+$.getJSON("https://cy30l4lai7.execute-api.eu-west-2.amazonaws.com/api/v1/for-sale/london/?key=61214d7929094e3b8d776628c38d2f22",function(data){
+var x = JSON.stringify(data);
+console.log(x);
+
+for(i=0;i<data.properties.length;i++)
+{
+	desc.push(data.properties[i].description);
+	price.push(data.properties[i].price.amount);
+	latitude.push(data.properties[i].location.latitude);
+	longitude.push(data.properties[i].location.longitude);
+}
+
+
+var j;
+for(j=0;j<desc.length;j++)
+{
+var n1=document.createElement("TD");
+var n2=document.createElement("TD");
+var n3=document.createElement("TD");
+var n4=document.createElement("TD");
+ var text1 =document.createTextNode(desc[j]);
+var text2 =document.createTextNode(price[j]);
+var text3 =document.createTextNode(latitude[j]);
+var text4 =document.createTextNode(longitude[j]);  
+n1.appendChild(text1);
+n2.appendChild(text2);
+n3.appendChild(text3);
+n4.appendChild(text4);
+var tg=document.createElement("TR")
+ tg.appendChild(n1);
+tg.appendChild(n2);
+tg.appendChild(n3);
+tg.appendChild(n4);
+document.getElementById("res").appendChild(tg);
+}
+}
+);
+}
+</script>
+</head>
+<body onload="func()">
+
+<table id="res">
+<th><th>Description</th>
+<th>Price</th>
+<th>Latitude</th>
+<th>Longitude</th>
+</th>
+	</table>
+
+
+ 
+   </body> 
+</html>
